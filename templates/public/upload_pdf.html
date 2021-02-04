@@ -6,50 +6,30 @@
     <div class="row">
       <div class="col">
   
-        <h6>About this app</h6>
+        <h6>automated data visualizer of current Covid19 situation by prefectures in Japan in tableau</h6>
 
-        <!-- <h1>Upload the latest PDF file</h1> -->
+        <h4>Current data displayed in tableau is as of: {{ current_data }}</h4>
+        <h5><a href="https://public.tableau.com/profile/sayaka.morita#!/vizhome/covid19Japantracker/Dashboard2?publish=yes" target="_blank">See the data in tableau</a></h5>
         <hr>
-        <h2>Curent data in excel is: {{ current_data }}</h2>
-        <hr>
-        <h2>Curent data on the website is: {{ latest_pdf_date_data }}</h2>
+        <h4>The latest data avaiable is: {{ latest_pdf_date_data }}</h4>
         <br>
         {% if current_data == latest_pdf_date_data %}
-        <h3>The current data is up to date with the latest source data available</h3>
+        <h3>The data in tableau is up to date with the latest source data available</h3>
         {% else %}
-        <h3>Get the latest data available</h3>
+        <h3>Update tableau with the latest data available</h3>
         <form action="/tracker" method="POST" enctype="multipart/form-data">
 
         <button type="submit" class="btn btn-primary">UPDATE</button>
         </form>
         {% endif %}
         
-        <!-- <form action="/getlink" method="POST" enctype="multipart/form-data">
-  
-          <div class="form-group">
-            <label>Select PDF file</label>
-            <div class="custom-file">
-              <input type="file" class="custom-file-input" name="pdf" id="pdf">
-              <label class="custom-file-label" for="pdf">Select PDF...</label>
-            </div>
-          </div>
-            {% for error in errors %}
-            <h4 class="errormsg">{{ error }}</h4>
-            {% endfor %}
-  
-          <button type="submit" class="btn btn-primary">Upload</button>
-  
-        </form> -->
-
-        
-  
       </div>
     </div>
 </div>
 
 <br>
 <br>
-<h6>Enter or paste the URL link of a news article to extract the news data summary:</h6>
+<h6>About this app</h6>
 
 
 
@@ -75,7 +55,7 @@
 <p><span>I built a web application that scrapes latest covid19 data for Japan for its 47 prefectures</span><span>from the Japanese government website and visualize the data in tableau dashboard.</span></p>
 <br><br>
 
-<p><span>The Japanese Ministry of Health, Labour and Welfare pubishes the latest information on Coronavirus situation in Japan on almost daily basis on its <a href=>website</a> however I noticed that 1) many data are not presented visually, 2) most data is only available in Japanese and 3) data is pubilshed on the web in PDF format.</span></p>
+<p><span>The Japanese Ministry of Health, Labour and Welfare pubishes the latest information</span><span>on Coronavirus situation in Japan on almost daily basis on its <a href=>website</a> however I noticed that 1) many data are not presented visually, 2) most data is only available in Japanese and 3) data is pubilshed on the web in PDF format.</span></p>
 <br><br>
 
 <p><span>
