@@ -208,29 +208,5 @@ def show_data(pdf_link,latest_pdf_date_data):
 
 
 
-# @app.route("/upload-pdf", methods=["GET", "POST"])
-# def upload_pdf():
-
-#     # errors = []
-
-#     if request.method == "POST":
-
-#         if request.files:
-
-#             pdf = request.files["pdf"]
-
-            
-
-                
-#             print(os.path.join(app.config["PDF_UPLOADS"]))
-#             pdf.save(app.config["PDF_UPLOADS"], pdf.filename)
-#             print(pdf)
-#             print("PDF uploaded to the local folder")
-
-#             return redirect(request.url)
-
-
-#     return render_template("public/upload_pdf.html")
-
 if __name__ == "__main__":
     app.run()
