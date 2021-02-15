@@ -2,115 +2,191 @@
 {% block content %}
 
 
-<div class="container">
+<div class="container mb-3">
     <div class="row">
-      <div class="col">
-  
-        <h6>automated data visualizer of current Covid19 situation by prefectures in Japan in tableau</h6>
+        <div class="col mt-2">
 
-        <h4>Current data displayed in tableau is as of: {{ current_data }}</h4>
-        <h5><a href="https://public.tableau.com/profile/sayaka.morita#!/vizhome/covid19Japantracker/Dashboard2?publish=yes" target="_blank">See the data in tableau</a></h5>
-        <hr>
-        <h4>The latest data avaiable is: {{ latest_pdf_date_data }}</h4>
-        <br>
-        {% if current_data == latest_pdf_date_data %}
-        <h3>The data in tableau is up to date with the latest source data available</h3>
-        {% else %}
-        <h3>Update tableau with the latest data available</h3>
-        <form action="/tracker" method="POST" enctype="multipart/form-data">
 
-        <button type="submit" class="btn btn-primary">UPDATE</button>
-        </form>
-        {% endif %}
-        
-      </div>
+            <div class="mb-4">
+                <h4>Current data visualized in <a
+                        href="https://public.tableau.com/profile/sayaka.morita#!/vizhome/covid19Japantracker/Dashboard2?publish=yes"
+                        target="_blank">tableau</a> is as of: {{ current_data }}</h4>
+                
+                <hr>
+                <h4>The latest data available is as of: {{ latest_pdf_date_data }}</h4>
+
+                {% if current_data == latest_pdf_date_data %}
+                <h3>The data in tableau is up to date with the latest source data available</h3>
+                {% else %}
+                <h3>Update tableau with the latest data available</h3>
+                <form action="/tracker" method="POST" enctype="multipart/form-data">
+
+                    <button type="submit" class="btn btn-primary">UPDATE</button>
+                    <br>
+                </form>
+                {% endif %}
+            </div>
+            
+            <div class='tableauPlaceholder' id='viz1613201862493' style='position: relative'><noscript><a href='#'><img
+                            alt=' '
+                            src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;co&#47;covid19Japantracker&#47;MainDashboard&#47;1_rss.png'
+                            style='border: none' /></a></noscript><object class='tableauViz' style='display:none;'>
+                    <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+                    <param name='embed_code_version' value='3' />
+                    <param name='site_root' value='' />
+                    <param name='name' value='covid19Japantracker&#47;MainDashboard' />
+                    <param name='tabs' value='yes' />
+                    <param name='toolbar' value='yes' />
+                    <param name='static_image'
+                        value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;co&#47;covid19Japantracker&#47;MainDashboard&#47;1.png' />
+                    <param name='animate_transition' value='yes' />
+                    <param name='display_static_image' value='yes' />
+                    <param name='display_spinner' value='yes' />
+                    <param name='display_overlay' value='yes' />
+                    <param name='display_count' value='yes' />
+                    <param name='language' value='en' />
+                </object></div> 
+
+            <span>Please visit my <a href="https://www.morikaglobal.com" target="_blank">Portfolio site</a> or <a
+                    href="https://github.com/morikaglobal/covid19japan_tracker" target="_blank">my github </a> for the
+                code of this app.</span>
+
+
+        </div>
     </div>
 </div>
 
-<br>
-<br>
-<h6>About this app</h6>
+
+<h6>ABOUT THIS WEB APPLICATION</h6>
+
+<p><span>This is a web application I built with Python that automates scraping latest covid19 data for Japan for its 47
+        prefectures</span><span>from
+        the Japanese government website and visualize the data in tableau dashboard.</span></p>
+
+<p><span>The Japanese Ministry of Health, Labour and Welfare publishes the latest information</span><span>on Coronavirus
+        situation in Japan on almost daily basis on its <a href="https://www.mhlw.go.jp/english/"
+            target="_blank">website</a></span><span>however I noticed that 1) many data are not
+        presented visually, 2) most data is only available in Japanese</span><span>and 3) data I wanted is pubilshed on the web in PDF format.</span></p>
 
 
+<p><span>What I wanted to check on regular basis from the website was the latest data of the situation</span><span>by 47
+        different prefectures in Japan and the data was available but in PDF table format</span><span>and I can not tell
+        whether the data (PDF in this case) is up to date or when it was last updated</span><span> unless I manualy open
+        the PDF file from the website and check the date of update within the PDF file.
+    </span></p>
 
-<h6>Can't think of or find URL link of a news article?</h6>
-<p>Here are few examples of URL link you can copy and paste into the form above!</p>
 
-<div class="bg-white py-3 mb-3">
-    <a href="https://www.scmp.com/news/hong-kong/health-environment/article/3081205/coronavirus-hong-kong-medical-experts-say-social"
-        target="_blank">https://www.scmp.com/news/hong-kong/health-environment/article/3081205/coronavirus-hong-kong-medical-experts-say-social</a>
-    <br><br>
-    <a href="https://www.washingtonpost.com/world/hong-kong-leader-invokes-colonial-era-emergency-powers-to-ban-masks-as-protests-swell/2019/10/04/8c11f2d0-e5e6-11e9-b0a6-3d03721b85ef_story.html"
-        target="_blank">https://www.washingtonpost.com/world/hong-kong-leader-invokes-colonial-era-emergency-powers-to-ban-masks-as-protests-swell/2019/10/04/8c11f2d0-e5e6-11e9-b0a6-3d03721b85ef_story.html</a>
-    <br><br>
-    <a href="https://elpais.com/elpais/2019/10/03/inenglish/1570094026_044146.html"
-        target="_blank">https://elpais.com/elpais/2019/10/03/inenglish/1570094026_044146.html</a>
+<div class="container my-2">
+    <div class="row">
+        <div class="col-md-6 col-lg-6 text-center">
+            <a href="https://www.mhlw.go.jp/stf/covid-19/kokunainohasseijoukyou.html#h2_1" target="_blank">
+                <img class="img-fluid" src="static/screenshots/MHLW_website_ss.png" alt="MHLW website"></a>
+            <p>The link on the website marked in RED box for the PDF</p>
+
+        </div>
+        <div class="col-md-6 col-lg-6 text-center">
+            <a href="https://www.mhlw.go.jp/content/10906000/000738691.pdf" target="_blank">
+                <img class="img-fluid" src="static/screenshots/MHLW_pdf_ss.png" alt="MHLW PDF file"></a>
+            <p>The date of update in RED box on the PDF</p>
+
+        </div>
+    </div>
 </div>
 
-<span>Please visit my <a href="https://www.morikaglobal.com" target="_blank">Portfolio site</a> or <a
-        href="https://github.com/morikaglobal/newsdatasummary_app" target="_blank">my github </a> for the
-    code of this app.</span><br><br>
-<h6>About this app</h6>
+<p><span>So without having to go and check the website, I wanted my web application to find out if the latest data is
+        available</span><span>and if so, fetch, cleans, process the data and updates existing data</span><span>and
+        visually presents the data using tableau dashboard with a single click on the button.
+    </span></p>
 
-<p><span>I built a web application that scrapes latest covid19 data for Japan for its 47 prefectures</span><span>from the Japanese government website and visualize the data in tableau dashboard.</span></p>
-<br><br>
+<h6>AUTOMATION</h6>
 
-<p><span>The Japanese Ministry of Health, Labour and Welfare pubishes the latest information</span><span>on Coronavirus situation in Japan on almost daily basis on its <a href=>website</a> however I noticed that 1) many data are not presented visually, 2) most data is only available in Japanese and 3) data is pubilshed on the web in PDF format.</span></p>
-<br><br>
-
-<p><span>
-  
-  
-  
-  The Japanese Ministry of Health, Labour and Welfare pubishes the latest information on Coronavirus situation in Japan on almost daily basis on its <a href=>website</a> however I noticed that 1) many data are not presented visually, 2) most data is only available in Japanese and 3) data is pubilshed on the web in PDF format.</span></p>
-<br><br>
-
-
-
-
-  
-  Previously I built a simple <a href="https://pythonnewsscraper.herokuapp.com/" target="_blank">News
-            Scraper APP</a> on the web using <strong>Python</strong> to scrape</span><span>the latest news
-        from a specific news site using <strong>Beautiful Soup</strong> and <strong>Flask</strong>.</span>
-    <br><br>
-    <span>This time, I built slightly more advanced version of the app to scrape news data from a news
-        article</span><span> using <strong>Python</strong> package <strong>newspaper3k</strong>, then deployed the app using <strong>Flask</strong> and on
-        <strong>heroku</strong>.</span>
-
-    <br><br>
-
-    <span>First of all, when the URL link form above captures the URL link of a news article,</span><span> the
-        <strong>newspaper3k</strong> package will extract and parse the data of the article with its Natural Language Processing.</span><span>For form input
-        handling and validation, I used <strong>WTForms</strong> and
-        <strong>requests</strong> libraries to grab the URL link entered in the form.</span><span>
-        Then, from the data extracted I extract following data to render on the first part of my result
-        page:</span>
-    <br><br>
-
-
-    <strong>Title</strong><br>
-    <strong>Published date</strong><br>
-    <strong>Author</strong><br>
-    <strong>Top image (source link)</strong>
-    <br><br>
-
-    <span>At the same time, using the full text of the article extracted,</span><span>my app also generates
-        <strong>WordCloud</strong> for the news article.</span><span>The WordCloud on the result page will display the
-        words that are the most frequent among the news text extracted.</span><span><strong>io</strong> library is used
-        to keep the WordCloud image in memory and <strong>base64</strong> to convert the resulting bytes</span><span> to
-        base64 in order to return the image as part of our HTML response and render the image.</span>
-        <span>* Please note WordCloud is currently disabled due to image storage issue</span>
-    <br><br>
-
-    <span>Lastly <strong>newspaper3k</strong> can also run its simple natural language processing to extract keywords from the news and also produce the summary of the article text.</span><br><br>
-
-    <strong>Keywords (WordCloud image)</strong><br>
-    <strong>Summary</strong>
-    <br><br>
-    <span>Keywords(WorldCloud) image and the summary of the news text will be displayed as the second part
-        of the result page.</span>
-
-    <br><br>
+<p><span>I wanted to start with automating two processes here, the first is to</span><span>1) Find out if the new PDF
+        (updated data) is availabe,</span><span>and 2) ONLY if the new PDF is available, scrape the data in the new PDF
+        and update the existing now no longer up-to-date data,</span><span>without manually having to go to the website
+        and open the PDF link.
+    </span>
 </p>
+
+<h6>DATA EXTRACTION and SCRAPING</h6>
+
+<p><span>Every time the data I need from the website gets updated, the new PDF file is generated so is the URL link for
+        the PDF file,</span><span>meaning the URL link of the file is dynamic.</span>
+        <br><span>
+        Therefore in order to scrape and extract the data from the PDF file,</span><span>I have to search for and
+        extract the URL link for the PDF file from the website first.</span>
+    <br>
+    <span>
+        So using <strong>BeautifulSoup</strong> library, I parse the <a
+            href="https://www.mhlw.go.jp/stf/covid-19/kokunainohasseijoukyou.html#h2_1" target="_blank">website</a>
+        where the PDF file is available via link,</span><span>and within the parsed data I look for the data I need with
+        the headline of the data</span><span>which is "各都道府県の検査陽性者の状況" (meaning Confirmed Cases Data by different
+        prefecture in Japanese) in this case, then get the URL link attribute.</span>
+</p>
+
+<p><span>Once I have the URL link of the PDF file, next step is to send a GET request to the link</span><span>and
+        extract the date of update (the date of the new PDF file data is as of),</span><span>written on top part of the
+        PDF file in text using <strong>requests</strong> library and <strong>PDFplumber</strong>.
+        <br>
+        At this stage, I will not extract the rest of the data on the PDF file,</span><span>the date of update text to
+        find out whether the new data (new PDF) is available or not.
+    </span></p>
+
+<p><span>If the date of update extracted is ahead of the date of update on hand,</span><span>that means newer PDF file
+        is on the website with most up-to-date data in the PDF file,</span><span>if not it simply means the website has
+        not updated the PDF file yet.
+        <br> So only if the new PDF file is available, I will extract the latest data from the latest PDF file.
+    </span></p>
+
+<p><span>Unlike the date of update in text, the rest of the data in the PDF file is in table format,
+        <br>so this time I use <strong>tabula</strong> to extract the table with the data from the PDF file.</span></p>
+
+<h6>DATA TRANSFORMATION and PROCESSING</h6>
+
+<p><span>After getting the data from the PDF file I process the data with <strong>pandas</strong>,<br>rename dataframe
+        columns from Japanese to English, transform the list of prefecture names in Japanese to the list of prefecture
+        names in English<br>using the JSON file (dictionary with prefecture names in English and Japanese pairs) I
+        prepared,<br>remove unwanted characters so that the data can be used in tableau later on for data visualisation
+        and so on.
+    </span></p>
+
+<h6>DATA LOADING</h6>
+
+<p><span>After all the data processing the data gets loaded to google spreadsheets assigned<br>and replace the existing
+        data and this spreadsheet also works as the data source for tableau for the data visualisation.
+    </span></p>
+
+<h6>WEB APPLICATION FRONTEND</h6>
+
+<p><span>When the latest data updates the spreadsheet it also updates the date of update in the specified cell,</span><span>on the
+        frontend of the application I use the date in the cell as the current data date.</span>
+        <br><span>If the date of update of the latest PDF file on the website is ahead of the current data date,</span><span>I get the
+        frontend to display the message and UPDATE button to update the data in the spreadsheet.
+    </span></p>
+
+<div class="container my-2">
+    <div class="row">
+        <div class="col-md-6 col-lg-6 text-center">
+            <img class="img-fluid" src="static/screenshots/gs_ss.png" alt="Google Spreadsheets">
+            <p>The date of updated cell in RED in Google Spreadsheets</p>
+        </div>
+        <div class="col-md-6 col-lg-6 text-center">
+            <img class="img-fluid" src="static/screenshots/fe_ss.png" alt="Frontend Screenshot">
+            <p>How the frontend shows the date of update</p>
+        </div>
+    </div>
+</div>
+
+<h6>DATA VISUALISATION</h6>
+
+<p><span>Using the google spreadsheet as the data source, <a
+            href="https://public.tableau.com/profile/sayaka.morita#!/vizhome/covid19Japantracker/Dashboard2?publish=yes"
+            target="_blank">tableau</a> visualizes the data.
+        <br>
+        When the spreadsheet is updated with new data, tableau reflects the changes in the data (although it may take
+        some time at times).
+        <br>
+        The data that was only available in Japanese in PDF table format is now available visually in tableau dashboard
+        with all the process automated.
+    </span></p>
 
 {% endblock %}

@@ -12,6 +12,7 @@
 # below:
 .git
 .gitignore
+.gitattributes
 
 # Python pycache:
 __pycache__/
@@ -22,7 +23,7 @@ Pipfile
 Pipfile.lock
 
 
-new/
+env/
 rawdata/
 covid_india.xlsx
 covid19_dataset.xlsx

@@ -1,4 +1,10 @@
-from flask import Flask, render_template, request, redirect
+# google spreadsheets link
+# https://docs.google.com/spreadsheets/d/1JapJBtQz1ex8Wwyfw9SGkJ6CleplS7QrmT7SXMn3RJs/edit#gid=0
+
+# 'main' branch as the master branch 
+# git push -u origin main
+
+from flask import Flask, render_template, request
 import requests
 from bs4 import BeautifulSoup
 import re
@@ -26,14 +32,20 @@ def parsePrefectureName(key, items):
 
 app = Flask(__name__)
 
+@app.route("/favicon.ico")
+def favicon():
+    return app.send_static_file('favicon.ico')
+
 @app.route("/tracker", methods=["GET", "POST"])
 def get_pdflink():
 
     errors = []
 
+    # get the current data date from google spreadsheet cell I2
     current_data = wks.get_value("I2")
     print("CURRENT DATA IS " + current_data)
 
+    # get the date of update from the latest PDF on the website
     target_url = "https://www.mhlw.go.jp/stf/covid-19/kokunainohasseijoukyou.html#h2_1"
     r = requests.get(target_url)
 
@@ -61,11 +73,8 @@ def get_pdflink():
     
     pdf = pdfplumber.open(BytesIO(rq.content))
 
-    # print(type(pdf))
-    # print(pdf)
-
-    test = pdf.pages[0]
-    line_with_date = test.extract_words()
+    pdf_text = pdf.pages[0]
+    line_with_date = pdf_text.extract_words()
     published_date = line_with_date[1]
 
     print(published_date["text"])
@@ -83,6 +92,7 @@ def get_pdflink():
 
     return render_template("public/upload_pdf.html", current_data = current_data, latest_pdf_date_data = latest_pdf_date_data, errors=errors)
    
+
 def show_data(pdf_link,latest_pdf_date_data):
 
     df_list = tabula.read_pdf(
@@ -90,16 +100,6 @@ def show_data(pdf_link,latest_pdf_date_data):
 
     # print(df_list[0])
     print(type(df_list))
-
-    
-
-    
-    
-
-    print(latest_pdf_date_data)
-    print(type(latest_pdf_date_data))
-
-
     
     target_df = DataFrame(df_list[0])
     # print(target_df)
@@ -111,9 +111,6 @@ def show_data(pdf_link,latest_pdf_date_data):
     target_df = target_df[['都道府県名','陽性者数','PCR検査\r実施人数※1','入院治療等を\r要する者\r(人)うち重症※6','退院又は療養解除\rとなった者の数\r(人)','死亡(累積)\r(人)', 'Unnamed: 0']]
     print(target_df.columns)
 
-    
-    
-
     # rename column names in English
     target_df.rename(columns={'都道府県名':'Prefecture - JPN',
                             '陽性者数':'Confirmed',
@@ -124,14 +121,6 @@ def show_data(pdf_link,latest_pdf_date_data):
                             'Unnamed: 0': 'Deaths'}, inplace=True)
     print(target_df.columns)
 
-    
-
-
-    
-
-
-
-
     print(target_df.dtypes)
 
     # remove unwanted characters 
@@ -140,39 +129,30 @@ def show_data(pdf_link,latest_pdf_date_data):
     target_df['Prefecture - JPN'] = target_df['Prefecture - JPN'].str.strip('※123456789 ()')
     target_df['Prefecture - JPN'] = target_df['Prefecture - JPN'].str.replace(' ', '')
 
-    test = '青森'
-    print(type(prefecture_json))
-    print(parsePrefectureName(test, prefecture_json))
+    # test = '青森'
+    # print(type(prefecture_json))
+    # print(parsePrefectureName(test, prefecture_json))
 
     lst = []
     for x in target_df['Prefecture - JPN']:
         # print(x)
         # return x
         if x == "その他":
-            print("OTHER")
+            # print("OTHER")
             EN = "Other"
         elif x == "合計":
-            print("TOTAL")
+            # print("TOTAL")
             EN = "Total"
         else:
-            print(parsePrefectureName(x, prefecture_json))
+            # print(parsePrefectureName(x, prefecture_json))
             EN = parsePrefectureName(x, prefecture_json)
         lst.append(EN)
 
     
-    print(lst)
+    # print(lst)
     target_df.insert(1, 'Prefecture - ENG', lst)
-    print("COLUMN ADDED")
-    # target_df['Prefecture - ENG'] = target_df.apply(translate, axis=1)
-    # new_df = target_df.append(lst)
-
-    # new_df = new_df[0:4]
-    # print("NEW DF")
-    # print(new_df)
-
-
-
-
+    print("Prefecture ENG COLUMN ADDED")
+    
     # remove commas
     target_df['Confirmed'] = target_df['Confirmed'].str.replace(',', '')
 
@@ -184,27 +164,20 @@ def show_data(pdf_link,latest_pdf_date_data):
 
     test_df = target_df[0:4]
     print(test_df)
-    
-
-    # print(target_df.dtypes)
-    # print(target_df)
-
-    # Sort the data by Total Cases column
-    # target_df = target_df.sort_values(by = 'Total Cases', ascending = False)
-    # print(target_df)
 
     # Exporting the data
-    # DataFrame is exorted and updates Google Sheets under morikaglobal account
-
-    
+    # DataFrame is exported and updates Google Sheets under morikaglobal account
     print("First worksheet accessed")
     wks.update_value("I2", latest_pdf_date_data)
     wks.set_dataframe(target_df, (1,1))
 
     print("The worksheet has now been updated with the latest data")
 
-    return (latest_pdf_date_data)
-    # return "show data here"
+    current_data = wks.get_value("I2")
+    print("CURRENT DATA IS " + current_data)
+    # return (current_data)
+
+    return render_template("public/data_updated.html", current_data = current_data)
 
 
 

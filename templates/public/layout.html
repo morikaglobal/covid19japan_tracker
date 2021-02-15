@@ -9,26 +9,30 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
 </head>
 
 <body>
     <div class="container p-3 my-3">
         <div class="page-top px-4">
             <h2>COVID19 TRACKER - JAPAN</h2>
+            <h6>automated data visualizer of current Covid19 situation by prefectures in Japan in tableau</h6>
 
             {% block content %}
 
             {% endblock %}
 
             <span>Please visit my <a href="https://www.morikaglobal.com" target="_blank">Portfolio site</a> or <a
-                    href="https://github.com/morikaglobal/newsdatasummary_app" target="_blank">my github </a> for the
+                    href="https://github.com/morikaglobal/covid19japan_tracker" target="_blank">my github </a> for the
                 code of this app.</span>
 
         </div>
 
     </div>
 
-    
+    <script
+        type='text/javascript'>                    var divElement = document.getElementById('viz1613201862493'); var vizElement = divElement.getElementsByTagName('object')[0]; if (divElement.offsetWidth > 800) { vizElement.style.minWidth = '1000px'; vizElement.style.maxWidth = '100%'; vizElement.style.minHeight = '850px'; vizElement.style.maxHeight = (divElement.offsetWidth * 0.75) + 'px'; } else if (divElement.offsetWidth > 500) { vizElement.style.minWidth = '1000px'; vizElement.style.maxWidth = '100%'; vizElement.style.minHeight = '850px'; vizElement.style.maxHeight = (divElement.offsetWidth * 0.75) + 'px'; } else { vizElement.style.width = '100%'; vizElement.style.minHeight = '1850px'; vizElement.style.maxHeight = (divElement.offsetWidth * 1.77) + 'px'; } var scriptElement = document.createElement('script'); scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js'; vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
 
 </body>
 
