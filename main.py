@@ -1,8 +1,6 @@
 # google spreadsheets link
 # https://docs.google.com/spreadsheets/d/1JapJBtQz1ex8Wwyfw9SGkJ6CleplS7QrmT7SXMn3RJs/edit#gid=0
 
-# 'main' branch as the master branch 
-# git push -u origin main
 
 from flask import Flask, render_template, request
 import requests
