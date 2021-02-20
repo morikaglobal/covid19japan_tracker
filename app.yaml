@@ -1,6 +1,10 @@
-runtime: python37
+runtime: custom
+env: flex
 
 handlers:
 - url: /.*
   secure: always
   script: auto
+
+readiness_check:
+  app_start_timeout_sec: 600

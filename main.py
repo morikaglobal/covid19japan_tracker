@@ -1,5 +1,14 @@
+# coding: UTF-8
+
 # google spreadsheets link
 # https://docs.google.com/spreadsheets/d/1JapJBtQz1ex8Wwyfw9SGkJ6CleplS7QrmT7SXMn3RJs/edit#gid=0
+
+
+# # runtime: python37
+# handlers:
+# - url: /.*
+#   secure: always
+#   script: auto
 
 
 from flask import Flask, render_template, request
@@ -97,13 +106,13 @@ def show_data(pdf_link,latest_pdf_date_data):
         pdf_link, pages='all', lattice=True, multiple_tables=True)
 
     # print(df_list[0])
-    print(type(df_list))
     
     target_df = DataFrame(df_list[0])
     # print(target_df)
 
     column = target_df.columns.values
     print(column)
+
 
     # removing unnecessary column
     target_df = target_df[['都道府県名','陽性者数','PCR検査\r実施人数※1','入院治療等を\r要する者\r(人)うち重症※6','退院又は療養解除\rとなった者の数\r(人)','死亡(累積)\r(人)', 'Unnamed: 0']]
