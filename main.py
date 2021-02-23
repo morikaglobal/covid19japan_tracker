@@ -20,10 +20,10 @@ from pandas import DataFrame
 
 # import tabula
 
-# import pygsheets
-# client = pygsheets.authorize(service_file="google-credentials.json")
-# sheet = client.open("COVID19_japan")
-# wks = sheet[0]
+import pygsheets
+client = pygsheets.authorize(service_file="google-credentials.json")
+sheet = client.open("COVID19_japan")
+wks = sheet[0]
 
 import pdfplumber
 from io import BytesIO
@@ -39,9 +39,9 @@ import json
 
 app = Flask(__name__)
 
-# @app.route("/favicon.ico")
-# def favicon():
-#     return app.send_static_file('favicon.ico')
+@app.route("/favicon.ico")
+def favicon():
+    return app.send_static_file('favicon.ico')
 
 @app.route("/tracker", methods=["GET", "POST"])
 def get_pdflink():
@@ -49,10 +49,10 @@ def get_pdflink():
     errors = []
     
     # get the current data date from google spreadsheet cell I2
-    return "Hello World Success" 
+    
     current_data = wks.get_value("I2")
     print("CURRENT DATA IS " + current_data)
-
+    return "Hello World again" 
     # get the date of update from the latest PDF on the website
     target_url = "https://www.mhlw.go.jp/stf/covid-19/kokunainohasseijoukyou.html#h2_1"
     r = requests.get(target_url)
