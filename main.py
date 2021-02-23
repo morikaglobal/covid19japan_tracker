@@ -20,10 +20,10 @@ from pandas import DataFrame
 
 # import tabula
 
-import pygsheets
-client = pygsheets.authorize(service_file="google-credentials.json")
-sheet = client.open("COVID19_japan")
-wks = sheet[0]
+# import pygsheets
+# client = pygsheets.authorize(service_file="google-credentials.json")
+# sheet = client.open("COVID19_japan")
+# wks = sheet[0]
 
 import pdfplumber
 from io import BytesIO
@@ -39,9 +39,9 @@ import json
 
 app = Flask(__name__)
 
-@app.route("/favicon.ico")
-def favicon():
-    return app.send_static_file('favicon.ico')
+# @app.route("/favicon.ico")
+# def favicon():
+#     return app.send_static_file('favicon.ico')
 
 @app.route("/tracker", methods=["GET", "POST"])
 def get_pdflink():
