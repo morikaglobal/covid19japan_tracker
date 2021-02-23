@@ -20,10 +20,10 @@ from pandas import DataFrame
 
 # import tabula
 
-# import pygsheets
-# client = pygsheets.authorize(service_file="credentials.json")
-# sheet = client.open("COVID19_japan")
-# wks = sheet[0]
+import pygsheets
+client = pygsheets.authorize(service_file="credentials.json")
+sheet = client.open("COVID19_japan")
+wks = sheet[0]
 
 import pdfplumber
 from io import BytesIO
