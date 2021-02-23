@@ -30,12 +30,12 @@ from io import BytesIO
 
 import datetime
 import json
-json_open = open('prefecture_list.json', 'r', encoding='utf-8_sig')
-prefecture_json = json.load(json_open)
+# json_open = open('prefecture_list.json', 'r', encoding='utf-8_sig')
+# prefecture_json = json.load(json_open)
 
-def parsePrefectureName(key, items):
-    values = [x['en'] for x in items if 'name' in x and 'en' in x and x['name'] == key]
-    return values[0] if values else None
+# def parsePrefectureName(key, items):
+#     values = [x['en'] for x in items if 'name' in x and 'en' in x and x['name'] == key]
+#     return values[0] if values else None
 
 app = Flask(__name__)
 
@@ -47,7 +47,7 @@ def favicon():
 def get_pdflink():
 
     errors = []
-
+    
     # get the current data date from google spreadsheet cell I2
     return "Hello World"
     current_data = wks.get_value("I2")
