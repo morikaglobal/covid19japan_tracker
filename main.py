@@ -18,7 +18,7 @@ import re
 import pandas as pd
 from pandas import DataFrame
 
-import tabula
+# import tabula
 
 import pygsheets
 client = pygsheets.authorize(service_file="credentials.json")
@@ -102,6 +102,7 @@ def get_pdflink():
 
 def show_data(pdf_link,latest_pdf_date_data):
 
+    return "Testing on heroku"
     df_list = tabula.read_pdf(
         pdf_link, pages='all', lattice=True, multiple_tables=True)
 
