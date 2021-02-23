@@ -20,10 +20,10 @@ from pandas import DataFrame
 
 # import tabula
 
-import pygsheets
-client = pygsheets.authorize(service_file="credentials.json")
-sheet = client.open("COVID19_japan")
-wks = sheet[0]
+# import pygsheets
+# client = pygsheets.authorize(service_file="credentials.json")
+# sheet = client.open("COVID19_japan")
+# wks = sheet[0]
 
 import pdfplumber
 from io import BytesIO
@@ -49,6 +49,7 @@ def get_pdflink():
     errors = []
 
     # get the current data date from google spreadsheet cell I2
+    return "Hello World"
     current_data = wks.get_value("I2")
     print("CURRENT DATA IS " + current_data)
 
