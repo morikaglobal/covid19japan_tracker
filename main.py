@@ -49,7 +49,7 @@ def get_pdflink():
     errors = []
     
     # get the current data date from google spreadsheet cell I2
-    return "Hello World"
+    return "Hello World Success" 
     current_data = wks.get_value("I2")
     print("CURRENT DATA IS " + current_data)
 
