@@ -39,20 +39,20 @@ import json
 
 app = Flask(__name__)
 
-@app.route("/favicon.ico")
-def favicon():
-    return app.send_static_file('favicon.ico')
+# @app.route("/favicon.ico")
+# def favicon():
+#     return app.send_static_file('favicon.ico')
 
 @app.route("/tracker", methods=["GET", "POST"])
 def get_pdflink():
 
     errors = []
-    
+    return "Hello World again" 
     # get the current data date from google spreadsheet cell I2
     
     current_data = wks.get_value("I2")
     print("CURRENT DATA IS " + current_data)
-    return "Hello World again" 
+    
     # get the date of update from the latest PDF on the website
     target_url = "https://www.mhlw.go.jp/stf/covid-19/kokunainohasseijoukyou.html#h2_1"
     r = requests.get(target_url)
