@@ -19,6 +19,7 @@ import pandas as pd
 from pandas import DataFrame
 
 import tabula
+import camelot
 
 import pygsheets
 client = pygsheets.authorize(service_file="credentials.json")
@@ -102,30 +103,50 @@ def get_pdflink():
 
 def show_data(pdf_link,latest_pdf_date_data):
 
-    df_list = tabula.read_pdf(
-        pdf_link, pages='all', lattice=True, multiple_tables=True)
+    # df_list = tabula.read_pdf(
+    #     pdf_link, pages='all', lattice=True, multiple_tables=True)
+
+    print("camelot starts")
+    df_list = camelot.read_pdf(
+        pdf_link, pages='1-end')
+
+    target_df = df_list[0].df
+    # target_df = DataFrame(target_df)
+    headers = target_df.iloc[0]
+    target_df = pd.DataFrame(target_df.values[1:], columns = headers)
+
+    # removing unnecessary column
+    # target_df = target_df[['都道府県名','陽性者数','PCR検査\r実施人数※1','入院治療等を\r要する者\r(人)うち重症※6','退院又は療養解除\rとなった者の数\r(人)','死亡(累積)\r(人)', 'Unnamed: 0']]
+    # print("columns are:    ")
+    # print(target_df.columns)
+    
+    print("THIS IS target_df")
+    print(target_df)
+    # return "Hohohohoho"
+
 
     # print(df_list[0])
     
-    target_df = DataFrame(df_list[0])
+    # target_df = DataFrame(df_list[0])
     # print(target_df)
 
     column = target_df.columns.values
+    print("printing column")
     print(column)
 
 
     # removing unnecessary column
-    target_df = target_df[['都道府県名','陽性者数','PCR検査\r実施人数※1','入院治療等を\r要する者\r(人)うち重症※6','退院又は療養解除\rとなった者の数\r(人)','死亡(累積)\r(人)', 'Unnamed: 0']]
-    print(target_df.columns)
+    # target_df = target_df[['都道府県名','陽性者数','PCR検査\r実施人数※1','入院治療等を\r要する者\r(人)うち重症※6','退院又は療養解除\rとなった者の数\r(人)','死亡(累積)\r(人)', 'Unnamed: 0']]
+    # print(target_df.columns)
 
     # rename column names in English
     target_df.rename(columns={'都道府県名':'Prefecture - JPN',
                             '陽性者数':'Confirmed',
-                            'PCR検査\r実施人数※1':'Tested',
-                            '入院治療等を\r要する者\r(人)うち重症※6':'Active',
-                            '退院又は療養解除\rとなった者の数\r(人)':'Critical Condition',
-                            '死亡(累積)\r(人)':'Recovered', 
-                            'Unnamed: 0': 'Deaths'}, inplace=True)
+                            'PCR検査\n実施人数※1':'Tested',
+                            '入院治療等を\n要する者\n（人）':'Active',
+                            '':'Critical Condition',
+                            '退院又は療養解除\nとなった者の数\n（人）' :'Recovered', 
+                            '死亡（累積）\n（人）': 'Deaths'}, inplace=True)
     print(target_df.columns)
 
     print(target_df.dtypes)
@@ -144,7 +165,7 @@ def show_data(pdf_link,latest_pdf_date_data):
     for x in target_df['Prefecture - JPN']:
         # print(x)
         # return x
-        if x == "その他":
+        if x == "（その他）":
             # print("OTHER")
             EN = "Other"
         elif x == "合計":
