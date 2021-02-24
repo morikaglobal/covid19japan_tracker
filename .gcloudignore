@@ -21,6 +21,7 @@ __pycache__/
 
 Pipfile
 Pipfile.lock
+Dockerfile
 
 
 env/

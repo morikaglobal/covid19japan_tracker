@@ -18,7 +18,7 @@ import re
 import pandas as pd
 from pandas import DataFrame
 
-import tabula
+# import tabula
 
 import pygsheets
 client = pygsheets.authorize(service_file="credentials.json")
@@ -102,89 +102,89 @@ def get_pdflink():
 
 def show_data(pdf_link,latest_pdf_date_data):
 
-    df_list = tabula.read_pdf(
-        pdf_link, pages='all', lattice=True, multiple_tables=True)
+    # df_list = tabula.read_pdf(
+    #     pdf_link, pages='all', lattice=True, multiple_tables=True)
 
-    # print(df_list[0])
+    # # print(df_list[0])
     
-    target_df = DataFrame(df_list[0])
-    # print(target_df)
+    # target_df = DataFrame(df_list[0])
+    # # print(target_df)
 
-    column = target_df.columns.values
-    print(column)
+    # column = target_df.columns.values
+    # print(column)
 
 
-    # removing unnecessary column
-    target_df = target_df[['都道府県名','陽性者数','PCR検査\r実施人数※1','入院治療等を\r要する者\r(人)うち重症※6','退院又は療養解除\rとなった者の数\r(人)','死亡(累積)\r(人)', 'Unnamed: 0']]
-    print(target_df.columns)
+    # # removing unnecessary column
+    # target_df = target_df[['都道府県名','陽性者数','PCR検査\r実施人数※1','入院治療等を\r要する者\r(人)うち重症※6','退院又は療養解除\rとなった者の数\r(人)','死亡(累積)\r(人)', 'Unnamed: 0']]
+    # print(target_df.columns)
 
-    # rename column names in English
-    target_df.rename(columns={'都道府県名':'Prefecture - JPN',
-                            '陽性者数':'Confirmed',
-                            'PCR検査\r実施人数※1':'Tested',
-                            '入院治療等を\r要する者\r(人)うち重症※6':'Active',
-                            '退院又は療養解除\rとなった者の数\r(人)':'Critical Condition',
-                            '死亡(累積)\r(人)':'Recovered', 
-                            'Unnamed: 0': 'Deaths'}, inplace=True)
-    print(target_df.columns)
+    # # rename column names in English
+    # target_df.rename(columns={'都道府県名':'Prefecture - JPN',
+    #                         '陽性者数':'Confirmed',
+    #                         'PCR検査\r実施人数※1':'Tested',
+    #                         '入院治療等を\r要する者\r(人)うち重症※6':'Active',
+    #                         '退院又は療養解除\rとなった者の数\r(人)':'Critical Condition',
+    #                         '死亡(累積)\r(人)':'Recovered', 
+    #                         'Unnamed: 0': 'Deaths'}, inplace=True)
+    # print(target_df.columns)
 
-    print(target_df.dtypes)
+    # print(target_df.dtypes)
 
-    # remove unwanted characters 
-    # remove = re.compile('^※')
+    # # remove unwanted characters 
+    # # remove = re.compile('^※')
 
-    target_df['Prefecture - JPN'] = target_df['Prefecture - JPN'].str.strip('※123456789 ()')
-    target_df['Prefecture - JPN'] = target_df['Prefecture - JPN'].str.replace(' ', '')
+    # target_df['Prefecture - JPN'] = target_df['Prefecture - JPN'].str.strip('※123456789 ()')
+    # target_df['Prefecture - JPN'] = target_df['Prefecture - JPN'].str.replace(' ', '')
 
-    # test = '青森'
-    # print(type(prefecture_json))
-    # print(parsePrefectureName(test, prefecture_json))
+    # # test = '青森'
+    # # print(type(prefecture_json))
+    # # print(parsePrefectureName(test, prefecture_json))
 
-    lst = []
-    for x in target_df['Prefecture - JPN']:
-        # print(x)
-        # return x
-        if x == "その他":
-            # print("OTHER")
-            EN = "Other"
-        elif x == "合計":
-            # print("TOTAL")
-            EN = "Total"
-        else:
-            # print(parsePrefectureName(x, prefecture_json))
-            EN = parsePrefectureName(x, prefecture_json)
-        lst.append(EN)
+    # lst = []
+    # for x in target_df['Prefecture - JPN']:
+    #     # print(x)
+    #     # return x
+    #     if x == "その他":
+    #         # print("OTHER")
+    #         EN = "Other"
+    #     elif x == "合計":
+    #         # print("TOTAL")
+    #         EN = "Total"
+    #     else:
+    #         # print(parsePrefectureName(x, prefecture_json))
+    #         EN = parsePrefectureName(x, prefecture_json)
+    #     lst.append(EN)
 
     
-    # print(lst)
-    target_df.insert(1, 'Prefecture - ENG', lst)
-    print("Prefecture ENG COLUMN ADDED")
+    # # print(lst)
+    # target_df.insert(1, 'Prefecture - ENG', lst)
+    # print("Prefecture ENG COLUMN ADDED")
     
-    # remove commas
-    target_df['Confirmed'] = target_df['Confirmed'].str.replace(',', '')
+    # # remove commas
+    # target_df['Confirmed'] = target_df['Confirmed'].str.replace(',', '')
 
-    # convert data type from string to integer
-    target_df['Confirmed'] = pd.to_numeric(target_df['Confirmed'])
+    # # convert data type from string to integer
+    # target_df['Confirmed'] = pd.to_numeric(target_df['Confirmed'])
 
-    # Remove unnecessary row
-    target_df = target_df[1:]
+    # # Remove unnecessary row
+    # target_df = target_df[1:]
 
-    test_df = target_df[0:4]
-    print(test_df)
+    # test_df = target_df[0:4]
+    # print(test_df)
 
     # Exporting the data
     # DataFrame is exported and updates Google Sheets under morikaglobal account
-    print("First worksheet accessed")
-    wks.update_value("I2", latest_pdf_date_data)
-    wks.set_dataframe(target_df, (1,1))
+    # print("First worksheet accessed")
+    # wks.update_value("I2", latest_pdf_date_data)
+    # wks.set_dataframe(target_df, (1,1))
 
-    print("The worksheet has now been updated with the latest data")
+    # print("The worksheet has now been updated with the latest data")
 
-    current_data = wks.get_value("I2")
-    print("CURRENT DATA IS " + current_data)
-    # return (current_data)
+    # current_data = wks.get_value("I2")
+    # print("CURRENT DATA IS " + current_data)
+    # # return (current_data)
 
-    return render_template("public/data_updated.html", current_data = current_data)
+    return render_template("public/data_updated.html")
 
 
 
