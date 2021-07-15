@@ -66,7 +66,9 @@ def get_pdflink():
     
     if get_tag is not None:
 
-        pdf_link = get_tag.get("href")
+        link = str(get_tag.get("href"))
+
+        pdf_link = "https://www.mhlw.go.jp" + link
 
         print(pdf_link)
         
