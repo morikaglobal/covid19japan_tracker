@@ -69,6 +69,14 @@ def get_pdflink():
         pdf_link = get_tag.get("href")
 
         print(pdf_link)
+
+        if not pdf_link.startswith('https://'):
+            pdf_link = 'https://www.mhlw.go.jp' + pdf_link
+        else:
+            errors.append(
+            "There is an error and being fixed now."
+        )
+        print(pdf_link)
         
     else:
         print("The PDF file is currently not available on the website")
