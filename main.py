@@ -74,7 +74,7 @@ def get_pdflink():
             pdf_link = 'https://www.mhlw.go.jp' + pdf_link
         else:
             print("pdf_link captured")
-        )
+        
         print(pdf_link)
         
     else:
