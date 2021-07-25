@@ -73,8 +73,7 @@ def get_pdflink():
         if not pdf_link.startswith('https://'):
             pdf_link = 'https://www.mhlw.go.jp' + pdf_link
         else:
-            errors.append(
-            "There is an error and being fixed now."
+            print("pdf_link captured")
         )
         print(pdf_link)
         
