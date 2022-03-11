@@ -19,6 +19,9 @@ import pandas as pd
 from pandas import DataFrame
 
 import tabula
+test = tabula.environment_info()
+print("TEST")
+print(test)
 
 import pygsheets
 client = pygsheets.authorize(service_file="credentials.json")
@@ -112,17 +115,22 @@ def show_data(pdf_link,latest_pdf_date_data):
     df_list = tabula.read_pdf(
         pdf_link, pages='all', lattice=True, multiple_tables=True)
 
-    # print(df_list[0])
+    print(df_list[0])
     
     target_df = DataFrame(df_list[0])
-    # print(target_df)
+    print(target_df)
 
     column = target_df.columns.values
+    print("PRINTING")
     print(column)
+    name = target_df.columns
+    print(name)
 
 
+    target_df = target_df.drop([0])
+    
     # removing unnecessary column
-    target_df = target_df[['都道府県名','陽性者数','PCR検査\r実施人数※1','入院治療等を\r要する者\r(人)うち重症※6','退院又は療養解除\rとなった者の数\r(人)','死亡(累積)\r(人)', 'Unnamed: 0']]
+    target_df = target_df[['都道府県名','陽性者数','PCR検査\r実施人数※1','入院治療等を\r要する者(人)\rうち重症※6','退院又は療養解除\rとなった者の数\r(人)','死亡(累積)\r(人)', 'Unnamed: 0']]
     print(target_df.columns)
 
     # rename column names in English

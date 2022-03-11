@@ -1,4 +1,5 @@
 env/
+newenv/
 rawdata/
 covid_india.xlsx
 covid19_dataset.xlsx
