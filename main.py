@@ -130,13 +130,13 @@ def show_data(pdf_link,latest_pdf_date_data):
     # target_df = target_df.drop([0])
     
     # removing unnecessary column
-    target_df = target_df[['都道府県名','陽性者数','PCR検査\r実施人数※1','入院治療等を\r要する者(人)\rうち重症※6','退院又は療養解除\rとなった者の数\r(人)','死亡(累積)\r(人)', 'Unnamed: 0']]
+    target_df = target_df[['都道府県名','陽性者数','PCR検査等\r実施人数※1','入院治療等を\r要する者(人)\rうち重症※6','退院又は療養解除\rとなった者の数\r(人)','死亡(累積)\r(人)', 'Unnamed: 0']]
     print(target_df.columns)
 
     # rename column names in English
     target_df.rename(columns={'都道府県名':'Prefecture - JPN',
                             '陽性者数':'Confirmed',
-                            'PCR検査\r実施人数※1':'Tested',
+                            'PCR検査等\r実施人数※1':'Tested',
                             '入院治療等を\r要する者(人)\rうち重症※6':'Active',
                             '退院又は療養解除\rとなった者の数\r(人)':'Critical Condition',
                             '死亡(累積)\r(人)':'Recovered', 
